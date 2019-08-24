@@ -5,6 +5,12 @@
  require_once 'app/Models/Project.php';
  require_once 'app/Models/Printable.php';
 
+ require 'lib1/Project.php';
+
+    use App\Models\{Job, Project, Printable};
+
+
+
  $job1 = new Job('PHP developer', 'Este es la descripción para php');
  $job1->months = 5;
 
@@ -20,6 +26,10 @@
  $job4->months = 10;
 
  $job2 = new Job('Fronted dev', 'Este es la descripción para Fronted dev');
+
+
+ $projectLib = new Lib1\Project();
+
  $job2->months = 54;
  $jobs = [
     $job1,
