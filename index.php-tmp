@@ -1,7 +1,7 @@
 <?php
 
-include_once('jobs.php');
-$name = "Miguel Angel Muñoz Pozos";
+include_once ('jobs.php');
+$name        = "Miguel Angel Muñoz Pozos";
 $limitMonths = 2000;
 ?>
 
@@ -29,7 +29,7 @@ $limitMonths = 2000;
                 <img id="profile-picture" src="https://ui-avatars.com/api/?name=John+Doe&size=255" alt="">
             </div>
             <div class="col">
-                <h1><?php echo $name; ?></h1>
+                <h1><?php echo $name;?></h1>
                 <h2>PHP Developer</h2>
                 <ul>
                     <li>Mail: hector@mail.com</li>
@@ -62,29 +62,29 @@ $limitMonths = 2000;
                     <h3 class="border-bottom-gray">Work Experience</h3>
                     <ul>
 
-                        <?php
-                        $idx = 0;
-                        $totalMonths = 0;
+<?php
+$idx         = 0;
+$totalMonths = 0;
 
-                        for ($idx = 0; $idx < count($jobs); $idx++) {
-                          $totalMonths += $jobs[$idx]->months;
-                          
-                          if ($totalMonths > $limitMonths) {
-                            break;
-                        }
-                        
-                        printElement($jobs[$idx]);
-                    } ?>
-                </ul>
+for ($idx = 0; $idx < count($jobs); $idx++) {
+	$totalMonths += $jobs[$idx]->months;
+
+	if ($totalMonths > $limitMonths) {
+		break;
+	}
+
+	printElement($jobs[$idx]);
+}?>
+</ul>
             </div>
             <div>
                 <h3 class="border-bottom-gray">Projects</h3>
                 <ul>
-                    <?php
-                    for ($idx = 0; $idx < count($projects); $idx++) {
-                        printElement($projects[$idx]);
-                    } 
-                    ?>
+<?php
+for ($idx = 0; $idx < count($projects); $idx++) {
+	printElement($projects[$idx]);
+}
+?>
                 </ul>
 
 
