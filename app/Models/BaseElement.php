@@ -1,5 +1,6 @@
 <?php
-class BaseElement{
+require_once 'Printable.php';
+class BaseElement implements Printable{
     private $title;
     public $description;
     public $visible = true;
@@ -30,6 +31,10 @@ class BaseElement{
         
         return "$years $extraMoths";
     }
+
+    public function getDescription(){
+		return $this->description;
+	} 
 }
 
 
