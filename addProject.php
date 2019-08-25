@@ -2,7 +2,7 @@
 require_once 'vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use App\Models\Job;
+use App\Models\Project;
 
 $capsule = new Capsule;
 
@@ -26,11 +26,11 @@ $capsule->addConnection([
     
 
     if (!empty($_POST) ) {
-        $job = new Job();
+        $project = new Project();
     
-        $job->title = $_POST['title'];
-        $job->description = $_POST['description'];
-        $job->save();
+        $project->title = $_POST['title'];
+        $project->description = $_POST['description'];
+        $project->save();
     }
 
     
@@ -42,7 +42,7 @@ $capsule->addConnection([
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Job</title>
+    <title>Add Project</title>
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
@@ -50,8 +50,8 @@ $capsule->addConnection([
     <link rel="stylesheet" href="style.css">
     </head>
     <body>
-    <span class="h1">Add Job</span>
-    <form action="addJob.php" class="for-control" method="post">
+    <span class="h1">Add Project</span>
+    <form action="addProject.php" class="for-control" method="post">
     
     <label for="">Title: </label>
     <input class="for-control" type="text" name="title" id="">
