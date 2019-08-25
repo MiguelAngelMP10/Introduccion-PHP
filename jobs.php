@@ -1,12 +1,6 @@
  <?php
- 
-
- require_once 'app/Models/Job.php';
- require_once 'app/Models/Project.php';
- require_once 'app/Models/Printable.php';
-
- require 'lib1/Project.php';
-
+    require_once 'vendor/autoload.php';
+    
     use App\Models\{Job, Project, Printable};
 
 
@@ -26,9 +20,6 @@
  $job4->months = 10;
 
  $job2 = new Job('Fronted dev', 'Este es la descripción para Fronted dev');
-
-
- $projectLib = new Lib1\Project();
 
  $job2->months = 54;
  $jobs = [
