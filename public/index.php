@@ -9,6 +9,7 @@ require_once '../vendor/autoload.php';
 
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Aura\Router\RouterContainer;
 
 $capsule = new Capsule;
 
@@ -37,15 +38,30 @@ $capsule->addConnection([
         $_COOKIE,
         $_FILES
     );
-    echo '<pre>';
-    var_dump($request->getUri()->getPath());
-    echo '</pre>';
-
-
     
-    // $route = $_GET['route'] ?? '/' ;
-    // if ($route == '/') {
-    //     require '../index.php';
-    // }elseif($route == 'addJob'){
-    //     require '../addJob.php';
-    // }
+    
+    
+    $routerContainer = new RouterContainer();
+    
+    $map = $routerContainer->getMap();
+    
+    $map->get('index', '/', '../index.php');
+    
+    $map->get('addJob', '/jobs/add', '../addJob.php');
+
+    $map->get('addProject', '/project/add', '../addProject.php');
+    
+    $matcher = $routerContainer->getMatcher();
+    
+    $route = $matcher->match($request);
+    
+
+    if (!$route) {
+       echo 'No route';
+    }else{
+        require $route->handler;
+    }
+    
+    echo '<pre>';
+    var_dump();
+    echo '</pre>';
