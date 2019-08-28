@@ -1,13 +1,3 @@
-<?php
-use App\Models\Job;
-
-include_once('jobs.php');
-$name = "Miguel Angel Muñoz Pozos";
-$limitMonths = 2000;
-
-?>
-
-
 <!doctype html>
 <html lang="en">
 

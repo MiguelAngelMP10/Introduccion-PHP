@@ -13,6 +13,22 @@ use Aura\Router\RouterContainer;
 
 $capsule = new Capsule;
 
+
+function printElement($job){
+    echo ' <li class="work-position">';
+    echo '<h5>' . $job->title . '</h5>';
+    echo '<p>' . $job->description . '</p>';
+    echo '<p>' . $job->getDurationAsString($job->months) . '</p>';
+    echo '<strong>Achievements:</strong>';
+    echo '<ul>';
+    echo '  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '</ul>';
+    echo '</li>';    
+}
+
+
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => 'localhost',
@@ -48,25 +64,28 @@ $capsule->addConnection([
     $map->get('index', '/', [
         'controller' => 'App\Controllers\IndexController',
         'action' => 'indexAction'
-    ]);
-    
-    $map->get('addJob', '/jobs/add', '../addJob.php');
-
-    $map->get('addProject', '/project/add', '../addProject.php');
-    
-    $matcher = $routerContainer->getMatcher();
-    
-    $route = $matcher->match($request);
-    
-
-    if (!$route) {
-       echo 'No route';
-    }else{
-        $handlerData = $route->handler;
-        $controllerName  = $handlerData['controller'];
-        $actionName  = $handlerData['action'];
-
-        $controller  = new $controllerName;
-        $controller->$actionName();
-
-    }
+        ]);
+        
+        $map->get('addJob', '/jobs/add', [
+            'controller' => 'App\Controllers\JobsController',
+            'action' => 'getAddJobAction'
+            ]);
+            
+            $map->get('addProject', '/project/add', '../addProject.php');
+            
+            $matcher = $routerContainer->getMatcher();
+            
+            $route = $matcher->match($request);
+            
+            
+            if (!$route) {
+                echo 'No route';
+            }else{
+                $handlerData = $route->handler;
+                $controllerName  = $handlerData['controller'];
+                $actionName  = $handlerData['action'];
+                
+                $controller  = new $controllerName;
+                $controller->$actionName();
+                
+            }
