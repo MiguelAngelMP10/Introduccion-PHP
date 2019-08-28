@@ -13,7 +13,7 @@
 </head>
 <body>
     <span class="h1">Add Job</span>
-    <form action="addJob.php" class="for-control" method="post">
+    <form action="/jobs/add" class="for-control" method="post">
         
         <label for="">Title: </label>
         <input class="for-control" type="text" name="title" id="">

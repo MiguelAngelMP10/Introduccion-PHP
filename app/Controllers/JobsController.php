@@ -3,12 +3,14 @@ namespace App\Controllers;
 use App\Models\Job;
 
 class JobsController{
-    public function getAddJobAction(){
-        if (!empty($_POST) ) {
+    public function getAddJobAction($request){
+
+        
+        if (($request->getMethod() == 'POST') ) {
             $job = new Job();
-            
-            $job->title = $_POST['title'];
-            $job->description = $_POST['description'];
+            $body = $request->getParsedBody();
+            $job->title = $body['title'];
+            $job->description = $body['description'];
             $job->save();
         }
         

@@ -63,29 +63,34 @@ $capsule->addConnection([
     
     $map->get('index', '/', [
         'controller' => 'App\Controllers\IndexController',
-        'action' => 'indexAction'
-        ]);
+        'action' => 'indexAction']);
         
-        $map->get('addJob', '/jobs/add', [
+        $map->get('addJobs', '/jobs/add', [
             'controller' => 'App\Controllers\JobsController',
-            'action' => 'getAddJobAction'
-            ]);
+            'action' => 'getAddJobAction']);
             
-            $map->get('addProject', '/project/add', '../addProject.php');
-            
-            $matcher = $routerContainer->getMatcher();
-            
-            $route = $matcher->match($request);
-            
-            
-            if (!$route) {
-                echo 'No route';
-            }else{
-                $handlerData = $route->handler;
-                $controllerName  = $handlerData['controller'];
-                $actionName  = $handlerData['action'];
+            $map->post('saveJobs', '/jobs/add', [
+                'controller' => 'App\Controllers\JobsController',
+                'action' => 'getAddJobAction']);
                 
-                $controller  = new $controllerName;
-                $controller->$actionName();
                 
-            }
+                
+                
+                $map->get('addProject', '/project/add', '../addProject.php');
+                
+                $matcher = $routerContainer->getMatcher();
+                
+                $route = $matcher->match($request);
+                
+                
+                if (!$route) {
+                    echo 'No route';
+                }else{
+                    $handlerData = $route->handler;
+                    $controllerName  = $handlerData['controller'];
+                    $actionName  = $handlerData['action'];
+                    
+                    $controller  = new $controllerName;
+                    $controller->$actionName($request);
+                    
+                }
