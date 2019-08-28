@@ -45,7 +45,10 @@ $capsule->addConnection([
     
     $map = $routerContainer->getMap();
     
-    $map->get('index', '/', '../index.php');
+    $map->get('index', '/', [
+        'controller' => 'App\Controllers\IndexController',
+        'action' => 'indexAction'
+    ]);
     
     $map->get('addJob', '/jobs/add', '../addJob.php');
 
@@ -59,9 +62,11 @@ $capsule->addConnection([
     if (!$route) {
        echo 'No route';
     }else{
-        require $route->handler;
+        $handlerData = $route->handler;
+        $controllerName  = $handlerData['controller'];
+        $actionName  = $handlerData['action'];
+
+        $controller  = new $controllerName;
+        $controller->$actionName();
+
     }
-    
-    echo '<pre>';
-    var_dump();
-    echo '</pre>';
