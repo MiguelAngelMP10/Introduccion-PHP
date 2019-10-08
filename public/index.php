@@ -77,9 +77,6 @@ $map->post('saveJobs', '/jobs/add', [
     'action' => 'getAddJobAction'
 ]);
 
-
-
-
 $map->get('addProject', '/project/add', '../addProject.php');
 
 $matcher = $routerContainer->getMatcher();
@@ -95,5 +92,6 @@ if (!$route) {
     $actionName  = $handlerData['action'];
 
     $controller  = new $controllerName;
-    $controller->$actionName($request);
+    $response  = $controller->$actionName($request);
+    echo $response->getBody();
 }
