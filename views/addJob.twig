@@ -2,6 +2,11 @@
 
 {% block content %}
     <span class="h1">Add Job</span>
+
+    <div class="alert alert-primary" role="alert">
+        {{responseMessage}}
+    </div>
+
     <form action="/jobs/add" class="for-control" method="post">
 
         <label for="">Title:
