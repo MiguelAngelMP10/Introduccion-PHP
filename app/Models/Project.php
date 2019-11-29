@@ -18,4 +18,3 @@ class Project extends Model
 		return "Project duration $years $extraMoths";
 	}
 }
-?>

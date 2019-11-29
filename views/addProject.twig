@@ -1,0 +1,23 @@
+{% extends "layaut.twig" %}
+
+{% block content %}
+	<span class="h1">Add project</span>
+
+	<div class="alert alert-primary" role="alert">
+		{{responseMessage}}
+	</div>
+
+
+	<form action="/projects/add" class="for-control" method="post" enctype="multipart/form-data">
+
+		<label for="title">Title:
+		</label>
+		<input class="for-control" type="text" name="title" id="title">
+
+		<label for="description">Description:
+		</label>
+		<input class="for-control" type="text" name="description" id="description">
+
+		<button type="submit" class="btn btn-outline-primary">Submit</button>
+	</form>
+{% endblock %}

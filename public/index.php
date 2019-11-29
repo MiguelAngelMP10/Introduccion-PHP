@@ -78,25 +78,29 @@ $map->post('saveJobs', '/jobs/add', [
 ]);
 
 
-$map->get('addUser', '/user/add', [
+$map->get('addProjects', '/projects/add', [
+    'controller' => 'App\Controllers\ProjectsController',
+    'action' => 'getAddProjectAction'
+]);
+
+$map->post('saveProjects', '/projects/add', [
+    'controller' => 'App\Controllers\ProjectsController',
+    'action' => 'getAddProjectAction'
+]);
+
+$map->get('addUsers', '/users/add', [
     'controller' => 'App\Controllers\UsersController',
     'action' => 'getAddUserAction'
 ]);
 
-$map->post('saveUser', '/user/add', [
+$map->post('saveUsers', '/users/add', [
     'controller' => 'App\Controllers\UsersController',
     'action' => 'getAddUserAction'
 ]);
 
-
-
-
-$map->get('addProject', '/project/add', '../addProject.php');
 
 $matcher = $routerContainer->getMatcher();
-
 $route = $matcher->match($request);
-
 
 if (!$route) {
     echo 'No route';
@@ -104,7 +108,6 @@ if (!$route) {
     $handlerData = $route->handler;
     $controllerName  = $handlerData['controller'];
     $actionName  = $handlerData['action'];
-
     $controller  = new $controllerName;
     $response  = $controller->$actionName($request);
     echo $response->getBody();
