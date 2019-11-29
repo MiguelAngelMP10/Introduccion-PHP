@@ -19,11 +19,20 @@ class JobsController extends BaseController
                 ->key('description', v::stringType()->notEmpty());
             try {
                 $jobValidator->assert($body);
-                $job = new Job();
-                $job->title = $body['title'];
-                $job->description = $body['description'];
-                $job->save();
-                $responseMessage = 'Saved';
+
+                $files = $request->getUploadedFiles();
+                $logo = $files['logo'];
+
+                if ($logo->getError() == UPLOAD_ERR_OK) {
+                    $fileName =  $logo->getClientFilename();
+                    $logo->moveTo("uploads/$fileName");
+                    $job = new Job();
+                    $job->title = $body['title'];
+                    $job->description = $body['description'];
+                    $job->img = "uploads/$fileName";
+                    $job->save();
+                    $responseMessage = 'Saved';
+                }
             } catch (\Exception $e) {
                 $responseMessage = $e->getMessage();
             }

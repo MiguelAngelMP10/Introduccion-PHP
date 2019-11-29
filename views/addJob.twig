@@ -7,7 +7,7 @@
         {{responseMessage}}
     </div>
 
-    <form action="/jobs/add" class="for-control" method="post">
+    <form action="/jobs/add" class="for-control" method="post" enctype="multipart/form-data">
 
         <label for="">Title:
         </label>
@@ -15,7 +15,10 @@
         <label for="">Description:
         </label>
         <input class="for-control" type="text" name="description" id="">
-
+        <div class="form-group">
+          <label for="logo"></label>
+          <input type="file" class="form-control-file" name="logo" id="" placeholder="Logo" aria-describedby="fileHelpId">
+        </div>
         <button type="submit" class="btn btn-outline-primary">Submit</button>
     </form>
 {% endblock %}
