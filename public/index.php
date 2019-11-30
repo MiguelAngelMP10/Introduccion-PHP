@@ -21,6 +21,7 @@ $capsule = new Capsule;
 
 function printElement($job)
 {
+
     echo ' <li class="work-position">';
     echo '<h5>' . $job->title . '</h5>';
     echo '<p>' . $job->description . '</p>';
