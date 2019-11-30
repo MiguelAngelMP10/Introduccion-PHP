@@ -8,6 +8,9 @@ error_reporting(E_ALL);
 require_once '../vendor/autoload.php';
 
 session_start();
+$dotenv = Dotenv\Dotenv::create(__DIR__ . '/..');
+$dotenv->load();
+
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
@@ -34,10 +37,10 @@ function printElement($job)
 
 $capsule->addConnection([
     'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'cursophp',
-    'username'  => 'root',
-    'password'  => '',
+    'host'      => getenv('DB_HOST'),
+    'database'  => getenv('DB_NAME'),
+    'username'  => getenv('DB_USER'),
+    'password'  => getenv('DB_PASS'),
     'charset'   => 'utf8mb4',
     'collation' => 'utf8mb4_spanish_ci',
     'prefix'    => '',
