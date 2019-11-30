@@ -99,6 +99,18 @@ $map->post('saveUsers', '/users/add', [
 ]);
 
 
+$map->get('loginForm', '/login', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'getLogin'
+]);
+
+$map->post('auth', '/auth', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'postLogin'
+]);
+
+
+
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
 
@@ -110,5 +122,11 @@ if (!$route) {
     $actionName  = $handlerData['action'];
     $controller  = new $controllerName;
     $response  = $controller->$actionName($request);
+    foreach ($response->getHeaders() as $name => $values) {
+        foreach ($values as $value) {
+            header(sprintf('%s: %s', $name, $value), false);
+        }
+    }
+    http_response_code($response->getStatusCode());
     echo $response->getBody();
 }

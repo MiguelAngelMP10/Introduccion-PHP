@@ -1,0 +1,19 @@
+{% extends "layaut.twig" %}
+
+{% block content %}
+	<span class="h1">Login</span>
+
+	<div class="alert alert-primary" role="alert">
+		{{responseMessage}}
+	</div>
+
+	<form action="/auth" class="for-control" method="post" enctype="multipart/form-data">
+		<label for="email">email:
+		</label>
+		<input class="for-control" type="email" name="email" id="email">
+		<label for="password">password:
+		</label>
+		<input class="for-control" type="password" name="password" id="password">
+		<button type="submit" class="btn btn-outline-primary">Login</button>
+	</form>
+{% endblock %}
