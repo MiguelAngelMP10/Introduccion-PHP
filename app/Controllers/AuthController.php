@@ -27,6 +27,7 @@ class AuthController extends BaseController
                 $user = User::where('email', $body['email'])->first();
                 if ($user) {
                     if (password_verify($body['password'], $user->password)) {
+                        $_SESSION['userId'] = $user->id;
                         return new RedirectResponse('/admin');
                     } else {
                         $responseMessage = 'Las credenciales son incorrectas';
@@ -41,5 +42,11 @@ class AuthController extends BaseController
                 'responseMessage' => $responseMessage
             ]);
         }
+    }
+
+    public function getLogout()
+    {
+        unset($_SESSION['userId']);
+        return new RedirectResponse('/login');
     }
 }

@@ -1,0 +1,27 @@
+{% extends "layaut.twig" %}
+
+{% block content %}
+
+
+	<span class="h1">Dashboard</span>
+
+	<div class="alert alert-primary" role="alert">
+		{{responseMessage}}
+	</div>
+
+	<ul>
+		<li>
+			<a href="/users/add">Add user</a>
+		</li>
+		<li>
+			<a href="/jobs/add">Add job</a>
+		</li>
+
+	</ul>
+
+	<li>
+		<a href="/logout">logout</a>
+
+	</li>
+
+{% endblock %}
