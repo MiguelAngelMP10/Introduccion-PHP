@@ -14,10 +14,10 @@ class IndexController extends BaseController
         $jobs = Job::all();
         $projects = Project::all();
         $limitMonths = 5;
-        $filterFunction = function (array $job) use ($limitMonths) {
-            return $job['months'] >= $limitMonths;
-        };
-        $jobs = array_filter($jobs->toArray(), $filterFunction);
+        // $filterFunction = function (array $job) use ($limitMonths) {
+        //     return $job['months'] >= $limitMonths;
+        // };
+        // $jobs = array_filter($jobs->toArray(), $filterFunction);
 
         $name = "Miguel Angel Muñoz Pozos";
 
