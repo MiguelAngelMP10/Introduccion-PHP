@@ -11,7 +11,7 @@ class JobsController extends BaseController
 {
     public function indexAction()
     {
-        $jobs = Job::all();
+        $jobs = Job::withTrashed()->get();
         return $this->renderHTML("jobs/index.twig", compact('jobs'));
     }
 

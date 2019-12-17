@@ -5,11 +5,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasDefaultImage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Job extends Model
 {
 
 	use HasDefaultImage;
+	use SoftDeletes;
+
 	protected $primaryKey = 'id';
 	protected $table = 'jobs';
 
