@@ -1,0 +1,28 @@
+{% extends "layaut.twig" %}
+
+{% block content %}
+	<div class="row">
+
+		<h1>Jobs</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Job Title</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for job in jobs %}
+					<tr>
+						<td>{{job.title}}</td>
+						<td>
+							<a href="/jobs/delete?id={{job.id}}">Delete</a>
+
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

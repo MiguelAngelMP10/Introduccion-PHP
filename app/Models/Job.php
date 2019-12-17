@@ -10,7 +10,8 @@ class Job extends Model
 {
 
 	use HasDefaultImage;
-	protected $primaryKey = 'jobs';
+	protected $primaryKey = 'id';
+	protected $table = 'jobs';
 
 	public function getDurationAsString($months)
 	{

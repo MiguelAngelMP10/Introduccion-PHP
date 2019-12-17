@@ -79,6 +79,18 @@ $map->get('addJobs', '/jobs/add', [
     'auth' => true
 ]);
 
+$map->get('indexJobs', '/jobs', [
+    'controller' => 'App\Controllers\JobsController',
+    'action' => 'indexAction'
+]);
+
+$map->get('deleteJobs', '/jobs/delete', [
+    'controller' => 'App\Controllers\JobsController',
+    'action' => 'deleteAction'
+]);
+
+
+
 $map->post('saveJobs', '/jobs/add', [
     'controller' => 'App\Controllers\JobsController',
     'action' => 'getAddJobAction',
