@@ -11,10 +11,11 @@ session_start();
 $dotenv = Dotenv\Dotenv::create(__DIR__ . '/..');
 $dotenv->load();
 
-
+use App\Services\JobService;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
 
+$container = new DI\Container();
 
 $capsule = new Capsule;
 
@@ -167,7 +168,9 @@ if (!$route) {
         $controllerName = 'App\controllers\AuthController';
         $actionName = 'getLogout';
     }
-    $controller  = new $controllerName;
+
+    $controller = $container->get($controllerName);
+
     $response  = $controller->$actionName($request);
 
 
