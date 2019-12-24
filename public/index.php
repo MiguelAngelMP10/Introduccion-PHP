@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_starup_error', 1);
-
-error_reporting(E_ALL);
 
 require_once '../vendor/autoload.php';
 
@@ -11,16 +7,26 @@ session_start();
 $dotenv = Dotenv\Dotenv::create(__DIR__ . '/..');
 $dotenv->load();
 
-use App\Services\JobService;
+if (getenv('DEBUG') === 'true') {
+    ini_set('display_errors', 1);
+    ini_set('display_starup_error', 1);
+    error_reporting(E_ALL);
+}
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
 
 use WoohooLabs\Harmony\Harmony;
-use WoohooLabs\Harmony\Middleware\FastRouteMiddleware;
 use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
 use WoohooLabs\Harmony\Middleware\HttpHandlerRunnerMiddleware;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\EmptyResponse;
 use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$log = new Logger('app');
+$log->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::WARNING));
 
 $container = new DI\Container();
 
@@ -175,11 +181,23 @@ if (!$route) {
         $controllerName = 'App\controllers\AuthController';
         $actionName = 'getLogout';
     }
-
-    $harmony = new Harmony($request, new Response());
-    $harmony
-        ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
-        ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
-        ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
-        ->run();
+    try {
+        $harmony = new Harmony($request, new Response());
+        $harmony
+            ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()));
+        if (getenv('DEBUG') === 'true') {
+            $harmony->addMiddleware(new \Franzl\Middleware\Whoops\WhoopsMiddleware());
+        }
+        $harmony->addMiddleware(new \App\Middlewares\AuthenticationMiddleware())
+            ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
+            ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
+            ->run();
+    } catch (Exception $e) {
+        $log->warning($e->getMessage());
+        $emitter = new SapiEmitter();
+        $emitter->emit(new EmptyResponse(400));
+    } catch (Error $e) {
+        $emitter = new SapiEmitter();
+        $emitter->emit(new EmptyResponse(500));
+    }
 }
